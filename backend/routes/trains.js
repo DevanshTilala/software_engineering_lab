@@ -35,10 +35,12 @@ router.get('/search', async (req, res) => {
     // For each train, get available seat counts by coach type
     for (let train of trains) {
       const [coaches] = await pool.query(`
-        SELECT c.coach_type, c.fare_per_km, COUNT(s.seat_id) AS total_seats,
-          COUNT(s.seat_id) - COALESCE(booked.booked_count, 0) AS available_seats
+        SELECT 
+          c.coach_type, 
+          c.fare_per_km, 
+          SUM(c.total_seats) AS total_seats,
+          SUM(c.total_seats) - COALESCE(SUM(booked.booked_count), 0) AS available_seats
         FROM coaches c
-        JOIN seats s ON c.coach_id = s.coach_id
         LEFT JOIN (
           SELECT s2.coach_id, COUNT(*) AS booked_count 
           FROM seat_availability sa

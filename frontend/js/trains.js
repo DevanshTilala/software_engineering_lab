@@ -64,8 +64,8 @@ function swapStations() {
 async function handleSearch(e) {
   if (e) e.preventDefault();
 
-  const from = document.getElementById('from-station').value;
-  const to = document.getElementById('to-station').value;
+  let from = document.getElementById('from-station').value;
+  let to = document.getElementById('to-station').value;
   const date = document.getElementById('journey-date').value;
 
   if (!from || !to) {
@@ -73,11 +73,19 @@ async function handleSearch(e) {
     return;
   }
 
+  const extractCode = (str) => {
+    const match = str.match(/\(([^)]+)\)$/);
+    return match ? match[1] : str;
+  };
+
+  const fromCode = extractCode(from);
+  const toCode = extractCode(to);
+
   const resultsDiv = document.getElementById('search-results');
   resultsDiv.innerHTML = '<div class="loader"><div class="spinner"></div></div>';
 
   try {
-    const trains = await API.get(`/trains/search?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${date}`);
+    const trains = await API.get(`/trains/search?from=${encodeURIComponent(fromCode)}&to=${encodeURIComponent(toCode)}&date=${date}`);
 
     if (trains.length === 0) {
       resultsDiv.innerHTML = `
