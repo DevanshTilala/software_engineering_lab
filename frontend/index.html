@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Railway Management System — Book train tickets, check live status, manage your journey with ease.">
+  <title>RailWay — Railway Management System</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="/index.html" class="nav-logo">
+        <span>RailWay</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" id="nav-links"></div>
+      <div class="nav-auth" id="nav-auth"></div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-container">
+      <div class="hero-content">
+        <h1>
+          Your Journey,<br>
+          <span class="highlight">Our Commitment</span>
+        </h1>
+        <p>Book train tickets instantly, track live status, and manage your entire journey from one powerful platform.
+          Experience railway travel reimagined.</p>
+        <div class="hero-actions">
+          <a href="/pages/search.html" class="btn btn-primary btn-lg" id="hero-search-btn">Search Trains</a>
+          <a href="/pages/train-status.html" class="btn btn-secondary btn-lg" id="hero-status-btn">Track Status</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="stat-value">500+</div>
+            <div class="stat-label">Trains</div>
+          </div>
+          <div class="hero-stat">
+            <div class="stat-value">7000+</div>
+            <div class="stat-label">Stations</div>
+          </div>
+          <div class="hero-stat">
+            <div class="stat-value">10M+</div>
+            <div class="stat-label">Tickets</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Search Card -->
+      <div class="hero-search-card" id="quick-search-card">
+        <h2>Book ticket</h2>
+        <form id="hero-search-form" onsubmit="heroSearch(event)">
+          <div class="form-group">
+            <label class="form-label">From Station</label>
+            <input type="text" class="form-input" id="hero-from" placeholder="Enter city or station"
+              list="hero-from-list" required>
+            <datalist id="hero-from-list"></datalist>
+          </div>
+          <button type="button" class="swap-btn" onclick="heroSwap()" aria-label="Swap stations">⇅</button>
+          <div class="form-group">
+            <label class="form-label">To Station</label>
+            <input type="text" class="form-input" id="hero-to" placeholder="Enter city or station" list="hero-to-list"
+              required>
+            <datalist id="hero-to-list"></datalist>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Journey Date</label>
+            <input type="date" class="form-input" id="hero-date" required>
+          </div>
+          <button type="submit" class="btn btn-accent btn-lg" style="width: 100%;" id="hero-search-submit">
+            Search Trains
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section" style="background: var(--bg-secondary);" id="features">
+    <div class="section-container">
+      <div class="section-header">
+        <h2>Why Choose <span class="highlight">RailWay</span>?</h2>
+        <p>Everything you need for a seamless railway experience, all in one place.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card" id="feature-booking">
+          <h3>Instant Booking</h3>
+          <p>Book tickets in seconds with our streamlined process. Select seats, add passengers, and pay—all in a few
+            clicks.</p>
+        </div>
+        <div class="feature-card" id="feature-status">
+          <h3>Live Train Status</h3>
+          <p>Track any train in real-time. Get delay alerts and current location with our live status tracking system.
+          </p>
+        </div>
+        <div class="feature-card" id="feature-seats">
+          <h3>Seat Selection</h3>
+          <p>Choose your preferred seat with our interactive seat map. View availability across all coach types.</p>
+        </div>
+        <div class="feature-card" id="feature-payment">
+          <h3>Secure Payments</h3>
+          <p>Pay safely with UPI, Credit/Debit cards, Net Banking, or digital wallets. All transactions are encrypted.
+          </p>
+        </div>
+        <div class="feature-card" id="feature-coolie">
+          <h3>Coolie Service</h3>
+          <p>Book a coolie at any station for luggage assistance. Transparent pricing with platform-specific assignment.
+          </p>
+        </div>
+        <div class="feature-card" id="feature-notify">
+          <h3>Smart Notifications</h3>
+          <p>Get real-time alerts for booking confirmations, train delays, cancellations, and payment statuses.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section" id="cta">
+    <div class="section-container" style="text-align: center;">
+      <h2 style="font-family: var(--font-heading); font-size: 2.5rem; font-weight: 800; margin-bottom: 16px;">
+        Ready to Start Your Journey?
+      </h2>
+      <p
+        style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto;">
+        Join thousands of users who trust RailWay for their daily commute.
+      </p>
+      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+        <a href="/pages/register.html" class="btn btn-primary btn-lg" id="cta-signup">Create Free Account</a>
+        <a href="/pages/search.html" class="btn btn-secondary btn-lg" id="cta-search">Browse Trains</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" id="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3><span>RailWay</span></h3>
+        <p>Your complete railway management solution. Book tickets, track trains, and travel with confidence.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="/pages/search.html">Search Trains</a>
+        <a href="/pages/train-status.html">Train Status</a>
+        <a href="/pages/my-bookings.html">My Bookings</a>
+        <a href="/pages/coolie.html">Coolie Service</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="#">Help Center</a>
+        <a href="#">Contact Us</a>
+        <a href="#">FAQs</a>
+        <a href="#">Report Issue</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Refund Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 RailWay Management System. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="/js/app.js"></script>
+  <script>
+    // Hero section - load stations and date
+    document.addEventListener('DOMContentLoaded', async () => {
+      const dateInput = document.getElementById('hero-date');
+      if (dateInput) {
+        dateInput.min = new Date().toISOString().split('T')[0];
+        dateInput.value = new Date().toISOString().split('T')[0];
+      }
+
+      try {
+        const stations = await API.get('/trains/stations/all');
+        const fromList = document.getElementById('hero-from-list');
+        const toList = document.getElementById('hero-to-list');
+        stations.forEach(s => {
+          const opt1 = document.createElement('option');
+          opt1.value = `${s.station_name} (${s.station_code})`;
+          fromList.appendChild(opt1);
+          const opt2 = document.createElement('option');
+          opt2.value = `${s.station_name} (${s.station_code})`;
+          toList.appendChild(opt2);
+        });
+      } catch (e) {
+        // API might not be running yet
+      }
+    });
+
+    function heroSearch(e) {
+      e.preventDefault();
+      const from = document.getElementById('hero-from').value;
+      const to = document.getElementById('hero-to').value;
+      const date = document.getElementById('hero-date').value;
+      window.location.href = `/pages/search.html?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${date}`;
+    }
+
+    function heroSwap() {
+      const from = document.getElementById('hero-from');
+      const to = document.getElementById('hero-to');
+      const temp = from.value;
+      from.value = to.value;
+      to.value = temp;
+    }
+  </script>
+</body>
+
+</html>

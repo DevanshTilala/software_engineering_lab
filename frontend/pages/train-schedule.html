@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="View train schedule with all stops and timings.">
+  <title>Train Schedule — RailWay</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="/index.html" class="nav-logo"><span>RailWay</span></a>
+      <button class="nav-toggle" id="nav-toggle"><span></span><span></span><span></span></button>
+      <div class="nav-links" id="nav-links"></div>
+      <div class="nav-auth" id="nav-auth"></div>
+    </div>
+  </nav>
+
+  <div class="page">
+    <div class="page-container">
+      <div class="page-header">
+        <h1>Train Schedule</h1>
+      </div>
+      <div id="schedule-container">
+        <div class="loader"><div class="spinner"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const params = new URLSearchParams(window.location.search);
+      const trainId = params.get('id');
+      if (!trainId) {
+        document.getElementById('schedule-container').innerHTML = `
+          <div class="empty-state"><div class="empty-icon">!</div><h3>No train specified</h3></div>
+        `;
+        return;
+      }
+
+      try {
+        const data = await API.get(`/trains/${trainId}/schedule`);
+        const { train, stops } = data;
+
+        document.getElementById('schedule-container').innerHTML = `
+          <div class="card fade-in" style="margin-bottom: 24px;">
+            <h2 style="font-family: var(--font-heading); font-weight: 800;">${train.train_name}</h2>
+            <p style="color: var(--text-muted);">#${train.train_number} &nbsp;|&nbsp; ${train.source_name} → ${train.dest_name}</p>
+            <p style="color: var(--text-secondary); margin-top: 8px;">Runs on: ${train.runs_on}</p>
+          </div>
+
+          <div class="card fade-in">
+            <h3 style="margin-bottom: 24px; font-family: var(--font-heading);">All Stops</h3>
+            <div class="status-timeline">
+              ${stops.map((stop, idx) => `
+                <div class="status-stop ${idx === 0 ? 'current' : ''}">
+                  <div class="stop-name">${stop.station_name} (${stop.station_code})</div>
+                  <div class="stop-time">
+                    ${stop.arrival_time ? `Arrives: ${formatTime(stop.arrival_time)}` : 'Origin'}
+                    ${stop.departure_time ? ` &nbsp;|&nbsp; Departs: ${formatTime(stop.departure_time)}` : ' &nbsp;|&nbsp; Terminus'}
+                    &nbsp;|&nbsp; ${stop.distance_km} km
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <div style="margin-top: 24px;">
+            <a href="/pages/search.html" class="btn btn-secondary">← Back to Search</a>
+          </div>
+        `;
+      } catch (err) {
+        document.getElementById('schedule-container').innerHTML = `
+          <div class="empty-state"><div class="empty-icon">!</div><h3>Failed to load schedule</h3><p>${err.error || ''}</p></div>
+        `;
+      }
+    });
+  </script>
+</body>
+</html>
