@@ -1,2 +1,8 @@
-node_modules/
 .env
+backend/.env
+node_modules/
+*.log
+*.sql
+*.dump
+*.bak
+.DS_Store

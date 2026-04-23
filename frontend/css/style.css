@@ -2150,3 +2150,17 @@ img {
 .amount-lg {
   font-size: 1.8rem;
 }
+
+.theme-icon,
+.nav-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+  transition: filter var(--transition-fast);
+}
+
+[data-theme="dark"] .theme-icon,
+[data-theme="dark"] .nav-icon {
+  filter: brightness(0) invert(1);
+}

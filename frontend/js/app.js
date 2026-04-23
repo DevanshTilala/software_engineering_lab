@@ -27,7 +27,9 @@ const Theme = {
     const btn = document.getElementById('theme-toggle-btn');
     if (btn) {
       const isDark = this.get() === 'dark';
-      btn.innerHTML = isDark ? '' : '';
+      btn.innerHTML = isDark
+        ? '<img src="/images/night-mode.png" alt="Switch to light mode" class="theme-icon">'
+        : '<img src="/images/night-mode.png" alt="Switch to dark mode" class="theme-icon">';
       btn.title = isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode';
     }
   }
@@ -187,7 +189,7 @@ function initNavbar() {
     navAuth.innerHTML = `
       <button class="theme-toggle" id="theme-toggle-btn" onclick="Theme.toggle()" title="Toggle theme"></button>
       <button class="nav-notification-btn" onclick="window.location.href='/pages/notifications.html'" id="nav-notif-btn">
-        
+        <img src="/images/bell.png" alt="Notifications" class="nav-icon">
         <span class="notification-badge" id="notif-badge" style="display:none">0</span>
       </button>
       <div class="nav-user-menu">
@@ -309,3 +311,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   Theme.updateToggleIcon();
 });
+
+
